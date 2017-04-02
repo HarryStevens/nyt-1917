@@ -1,19 +1,16 @@
 {
   "name": "nyt-1917",
   "version": "1.0.0",
-  "description": "",
+  "description": "A script for tweeting New York Times articles about Russia from 100 years ago.",
   "main": "index.js",
+  "repository": "https://github.com/HarryStevens/nyt-1917",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^0.22.0",
-    "jquery": "^3.2.1",
     "request": "^2.81.0",
     "twit": "^2.2.5",
-    "underscore": "^1.8.3",
-    "x-ray": "^2.3.2"
   }
 }
