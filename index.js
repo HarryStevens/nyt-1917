@@ -55,25 +55,18 @@ request.get(
       // they must be from the correct date and they must be about either russia or germany
       if (
         obj.date == date &&
-        (
-        	(
-        		obj.headline.toLowerCase().includes("russia") ||
-        		(d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("russia")) ||
-          	(d.snippet && d.snippet.toLowerCase().includes("russia"))
-          ) ||
-          
-          (
-          	obj.headline.toLowerCase().includes("lenin") ||
-          	(d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("lenin")) ||
-          	(d.snippet && d.snippet.toLowerCase().includes("lenin"))
-          ) ||
-          
-          (
-          	obj.headline.toLowerCase().includes("petrograd") ||
-          	(d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("petrograd")) ||
-          	(d.snippet && d.snippet.toLowerCase().includes("petrograd"))
-          )
-        )
+        (obj.headline.toLowerCase().includes("russia") ||
+          (d.lead_paragraph &&
+            d.lead_paragraph.toLowerCase().includes("russia")) ||
+          (d.snippet && d.snippet.toLowerCase().includes("russia")) ||
+          obj.headline.toLowerCase().includes("lenin") ||
+          (d.lead_paragraph &&
+            d.lead_paragraph.toLowerCase().includes("lenin")) ||
+          (d.snippet && d.snippet.toLowerCase().includes("lenin")) ||
+          obj.headline.toLowerCase().includes("petrograd") ||
+          (d.lead_paragraph &&
+            d.lead_paragraph.toLowerCase().includes("petrograd")) ||
+          (d.snippet && d.snippet.toLowerCase().includes("petrograd")))
       ) {
         // post to twitter
         T.post(
