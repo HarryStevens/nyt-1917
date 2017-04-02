@@ -1,5 +1,7 @@
 // // dependencies
-var request = require("request"), fs = require("fs"), Twit = require("twit");
+var request = require("request"), 
+	fs = require("fs"),
+	Twit = require("twit");
 
 // a new Twit instance
 var T = new Twit({
@@ -8,6 +10,9 @@ var T = new Twit({
   access_token: "848440144541605888-pxQxguIkIntSEvLK4EuDmplQliLXPo8",
   access_token_secret: "pvSWeBsVfuwT6CjXAlp42gLRLAoYW1bydg3bWOQSsbYeM"
 });
+
+// an empty array
+var tweets = [];
 
 // date parser
 var date;
@@ -55,34 +60,33 @@ request.get(
       // they must be from the correct date and they must be about either russia or germany
       if (
         obj.date == date &&
-        (obj.headline.toLowerCase().includes("russia") ||
-          (d.lead_paragraph &&
-            d.lead_paragraph.toLowerCase().includes("russia")) ||
+        (
+        	obj.headline.toLowerCase().includes("russia") ||
+          (d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("russia")) ||
           (d.snippet && d.snippet.toLowerCase().includes("russia")) ||
           obj.headline.toLowerCase().includes("lenin") ||
-          (d.lead_paragraph &&
-            d.lead_paragraph.toLowerCase().includes("lenin")) ||
+          (d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("lenin")) ||
           (d.snippet && d.snippet.toLowerCase().includes("lenin")) ||
           obj.headline.toLowerCase().includes("petrograd") ||
-          (d.lead_paragraph &&
-            d.lead_paragraph.toLowerCase().includes("petrograd")) ||
-          (d.snippet && d.snippet.toLowerCase().includes("petrograd")))
+          (d.lead_paragraph && d.lead_paragraph.toLowerCase().includes("petrograd")) ||
+          (d.snippet && d.snippet.toLowerCase().includes("petrograd"))
+         )
       ) {
+
         // post to twitter
-        T.post(
-          "statuses/update",
-          { status: obj.tweet },
-          function(err, data, response) {
+        T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
+        	if (!err){
             console.log(data.text);
             console.log(" ");
-          }
-        );
+        	} else {
+        		console.log(err.message);
+        	}
+        });
 
         // and we'll save the tweets for fun
-        fs.writeFileSync(
-          "tweets/tweets_" + date + ".json",
-          JSON.stringify(tweets)
-        );
+        tweets.push(obj)
+        fs.writeFileSync("tweets/tweets_" + date + ".json", JSON.stringify(tweets));
+
       } // end if filter
     }); // end forEach()
   }
