@@ -38,12 +38,12 @@ request.get(
 
     // write filtered tweets to json
     docs.forEach((d, i) => {
+    	
       // an empty object to store data
       var obj = {};
 
       obj.headline = d.headline.main;
-      obj.url = "http://query.nytimes.com/mem/archive-free/pdf?res=" +
-        d.web_url.split("res=")[1];
+      obj.url = "http://query.nytimes.com/mem/archive-free/pdf?res=" + d.web_url.split("res=")[1];
       obj.date = d.pub_date.split("T")[0];
 
       var tweet_end = obj.url + " #1917LIVE";
