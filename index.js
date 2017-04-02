@@ -31,7 +31,7 @@ request.get(
       "api-key": "6ec2da195c80457a827aa558bbb82f95"
     }
   },
-  function(err, response, body) {
+  (err, response, body) => {
     // this is the response body
     body = JSON.parse(body);
     var docs = body.response.docs;
