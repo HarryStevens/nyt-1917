@@ -52,15 +52,14 @@ var date = moment().subtract(100, "years"); // "today", but actually 100 years a
 console.log("Getting articles from " + date.format("MMMM Do, YYYY") + ".");
 console.log(" ")
 
-
 // each page only returns 10 requests, so we'll find out how many there are first
 request.get({
   url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
   qs: {
-    'api-key': "6ec2da195c80457a827aa558bbb82f95",
-    'q': "russia",
-    'begin_date': date.format("YYYYMMDD"),
-    'end_date': date.format("YYYYMMDD"),
+    "api-key": "6ec2da195c80457a827aa558bbb82f95",
+    "fq": "russia OR lenin OR trotsky OR germany",
+    "begin_date": date.format("YYYYMMDD"),
+    "end_date": date.format("YYYYMMDD"),
   },
 }, function(err, response, body) {
   var hits = JSON.parse(body).response.meta.hits;
@@ -69,7 +68,7 @@ request.get({
   console.log(" ");
 
   // a rate-limited version of the request
-  var makeRequest_limited = _.rateLimit(makeRequest, 10000);
+  var makeRequest_limited = _.rateLimit(makeRequest, 1000);
   for (var i = 0; i < pages; i++){
     makeRequest_limited(i);
   }
@@ -112,14 +111,17 @@ request.get({
         }
 
         // post to twitter
-        T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
-          if (!err){
-            console.log(data.text);
-            console.log(" ");
-          } else {
-            console.log(err.message);
-          }
-        });
+        // T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
+        //   if (!err){
+        //     console.log(data.text);
+        //     console.log(" ");
+        //   } else {
+        //     console.log(err.message);
+        //   }
+        // });
+
+        console.log(obj.url);
+        console.log(" ");
 
         // and we'll save the tweets for fun
         tweets.push(obj)
