@@ -5,6 +5,29 @@ var request = require("request"),
 	Twit = require("twit"),
   moment = require('moment');
 
+// an array for matching famous people
+var people = [
+  {
+    name: "WILSON, WOODROW",
+    handle: "POTUS28_1917"
+  },
+  {
+    name: "NICHOLAS II., CZAR OF RUSSIA",
+    handle: "NicholasII_1917"
+  },
+  {
+    name: "KERENSKY, ALEXANDER F.",
+    handle: "Kerensky_1917"
+  },
+  {
+    name: "WILLIAM II., EMPEROR OF GERMANY",
+    handle: "Kaiser_1917"
+  }
+];
+
+// the length of a tweet url
+var url_len = 23;
+
 // a new Twit instance
 var T = new Twit({
   consumer_key: "OtNYj1vCYvzir6YTfUBcieRD9",
@@ -102,17 +125,39 @@ request.get({
 
         // create the tweet, including cleaning headline to make more readable
         var tweet_start = d.headline.main;
-        var tweet_end = obj.url + " #1917LIVE";
+        var tweet_end = "#1917LIVE";
+
+        // figure out if any of the 1917crowd are mentioned
+        var persons = d.keywords.filter(function(key){
+          return key.name == "persons"
+        }).map(function(person){
+          return person.value
+        });
+
+        var lookup = people.map(function(p){
+          return p.name
+        })
+        var mentions = _.intersection(persons, lookup).map(function(p){
+          return "@" + _.where(people, {name: p})[0].handle;
+        }); 
+        // if they are add them to the end of the tweet
+        if (mentions.length > 0){
+          tweet_end = tweet_end + " " + mentions.join(" ");
+        }
+        // console.log(tweet_end);
+
+        var end_len = url_len + tweet_end.length + 2; // the two is for the spaces in front and back of the url
+        // console.log(end_len);
 
         // the tweet content is dependent upon the length of the headline
         // if the headline is too long, we'll cut it off, if necessary adding 3 dots
-        if (tweet_start.length > 106) {
+        if (tweet_start.length > (140 - end_len)) {
 
           // first we'll split on the semicolon and check again
           tweet_start = tweet_start.split(";")[0];
 
           // if it's still longer, we'll do some elipses
-          if (tweet_start.length > 103){
+          if (tweet_start.length > (140 - end_len - 3)){
             tweet_start = tweet_start.substr(0, 103);
             // put the elipses after the space
             var li = tweet_start.lastIndexOf(" ");
@@ -120,7 +165,7 @@ request.get({
           }
         } 
 
-        obj.tweet = tweet_start.toTitleCase() + " " + tweet_end;
+        obj.tweet = tweet_start.toTitleCase() + " " + obj.url + " " + tweet_end;
 
         // post to twitter
         T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
