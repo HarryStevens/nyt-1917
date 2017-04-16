@@ -163,7 +163,7 @@ request.get({
         if (tweet_start.length > (140 - end_len)) {
 
           // first we'll split on the semicolon and check again
-          tweet_start = tweet_start.split(";")[0];
+          // tweet_start = tweet_start.split(";")[0];
 
           // if it's still longer, we'll do some elipses
           if (tweet_start.length > (140 - end_len - 3)){
@@ -222,9 +222,8 @@ String.prototype.toTitleCase = function() {
     str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), 
       uppers[i].toUpperCase());
 
-  
   // others
-  [{a:"U.s.",b:"U.S."},{b:"Y.m.c.a",b:"Y.M.C.A"}]
+  [{a:"U.s.",b:"U.S."},{a:"Y.m.c.a",b:"Y.M.C.A"}]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
     });
