@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.18.1",
+    "node-fetch": "^1.6.3",
     "pdf-image": "^1.1.0",
     "request": "^2.81.0",
     "twit": "^2.2.5",

@@ -22,6 +22,10 @@ var people = [
   {
     name: "WILLIAM II., EMPEROR OF GERMANY",
     handle: "Kaiser_1917"
+  },
+  {
+    name: "TROTZKY, LEON",
+    handle: "LeoTrotsky_1917"
   }
 ];
 
@@ -75,12 +79,16 @@ var date = moment().subtract(100, "years"); // "today", but actually 100 years a
 console.log("Getting articles from " + date.format("MMMM Do, YYYY") + ".");
 console.log(" ")
 
+// nyt query
+var key = "6ec2da195c80457a827aa558bbb82f95",
+  query = "russia OR lenin OR trotsky OR germany OR czar OR socialism";
+
 // each page only returns 10 requests, so we'll find out how many there are first
 request.get({
   url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
   qs: {
-    "api-key": "6ec2da195c80457a827aa558bbb82f95",
-    "fq": "russia OR lenin OR trotsky OR germany",
+    "api-key": key,
+    "fq": query,
     "begin_date": date.format("YYYYMMDD"),
     "end_date": date.format("YYYYMMDD"),
   },
@@ -101,8 +109,8 @@ request.get({
     request.get({
       url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
       qs: {
-        'api-key': "6ec2da195c80457a827aa558bbb82f95",
-        "fq": "russia OR lenin OR trotsky OR germany",
+        'api-key': key,
+        "fq": query,
         'begin_date': date.format("YYYYMMDD"),
         'end_date': date.format("YYYYMMDD"),
         'page': page
@@ -133,6 +141,9 @@ request.get({
         }).map(function(person){
           return person.value
         });
+        obj.people_mentioned = persons;
+
+        console.log(persons);
 
         var lookup = people.map(function(p){
           return p.name
@@ -144,10 +155,8 @@ request.get({
         if (mentions.length > 0){
           tweet_end = tweet_end + " " + mentions.join(" ");
         }
-        // console.log(tweet_end);
 
         var end_len = url_len + tweet_end.length + 2; // the two is for the spaces in front and back of the url
-        // console.log(end_len);
 
         // the tweet content is dependent upon the length of the headline
         // if the headline is too long, we'll cut it off, if necessary adding 3 dots
@@ -167,15 +176,17 @@ request.get({
 
         obj.tweet = tweet_start.toTitleCase() + " " + obj.url + " " + tweet_end;
 
+        console.log(obj.tweet);
+
         // post to twitter
-        T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
-          if (!err){
-            console.log(data.text);
-            console.log(" ");
-          } else {
-            console.log(err.message);
-          }
-        });
+        // T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
+        //   if (!err){
+        //     console.log(data.text);
+        //     console.log(" ");
+        //   } else {
+        //     console.log(err.message);
+        //   }
+        // });
 
         // and we'll save the tweets for fun
         tweets.push(obj)
@@ -213,7 +224,7 @@ String.prototype.toTitleCase = function() {
 
   
   // others
-  [{a:"U.s.",b:"U.S."}]
+  [{a:"U.s.",b:"U.S."},{b:"Y.m.c.a",b:"Y.M.C.A"}]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
     });
