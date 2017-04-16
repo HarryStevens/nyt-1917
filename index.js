@@ -158,7 +158,7 @@ request.get({
 
           // if it's still longer, we'll do some elipses
           if (tweet_start.length > (140 - end_len - 3)){
-            tweet_start = tweet_start.substr(0, 103);
+            tweet_start = tweet_start.substr(0, (140 - end_len - 3));
             // put the elipses after the space
             var li = tweet_start.lastIndexOf(" ");
             tweet_start = tweet_start.substr(0, li) + "...";
