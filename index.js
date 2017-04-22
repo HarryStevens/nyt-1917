@@ -23,6 +23,8 @@ rmDir = function(dirPath) {
   fs.rmdirSync(dirPath);
 };
 rmDir("temp");
+
+// and make it anew
 fs.mkdirSync("temp");
 
 // an array for matching famous people
@@ -62,7 +64,7 @@ var people = [
 ];
 
 // the length of a tweet url
-var url_len = 23;
+// var url_len = 0;
 
 // a new Twit instance
 var T = new Twit({
@@ -132,7 +134,7 @@ request.get({
 
   // a rate-limited version of the request
   var makeRequest_limited = _.rateLimit(makeRequest, 10000);
-  for (var i = 5; i < pages; i++){
+  for (var i = 0; i < pages; i++){
     makeRequest_limited(i);
   }
 
@@ -191,7 +193,7 @@ request.get({
           tweet_end = tweet_end + " " + mentions.join(" ");
         }
 
-        var end_len = url_len + tweet_end.length + 2; // the two is for the spaces in front and back of the url
+        var end_len = tweet_end.length + 1; // the 1 is for the space between the tweet and the end
 
         // the tweet content is dependent upon the length of the headline
         // if the headline is too long, we'll cut it off, if necessary adding 3 dots
@@ -210,18 +212,18 @@ request.get({
         } 
 
 
-        obj.tweet = tweet_start.toTitleCase() + " " + obj.url + " " + tweet_end;
+        obj.tweet = tweet_start.toTitleCase() + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
 
           // first time
-          // console.log(persons);
-          // console.log(obj.tweet);
-          // console.log(" ");
+          console.log(persons);
+          console.log(obj.tweet);
+          console.log(" ");
 
           // second time
-          download_convert_post(obj.url, obj.pdf_file_name);
+          // download_convert_post(obj.url, obj.pdf_file_name);
 
           // downloads a pdf (and also converts it to an image and posts the tweet)
           function download_convert_post(input, output){
