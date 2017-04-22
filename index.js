@@ -8,6 +8,8 @@ var request = require("request"),
   http = require("http"),
   PDFImage = require("pdf-image").PDFImage;
 
+var current_hour = moment().format("H");
+
 // remove everything in the temp folder
 rmDir = function(dirPath) {
   try { var files = fs.readdirSync(dirPath); }
@@ -127,6 +129,7 @@ request.get({
     "end_date": date.format("YYYYMMDD"),
   },
 }, function(err, response, body) {
+
   var hits = JSON.parse(body).response.meta.hits;
   var pages = Math.ceil(hits / 10);
   console.log("Found " + hits + " articles on " + pages + " pages of results.");
@@ -162,6 +165,11 @@ request.get({
 
         obj.page = page + 1;
         obj.page_index = i + 1;
+        obj.tweet_number = (page * 10) + obj.page_index;
+        
+        // calculate the hour of the day that the tweet should go out, based on the total number of tweets
+        obj.hour_of_tweet = Math.round((obj.tweet_number * 24) / hits);
+
         obj.url = "http://query.nytimes.com/mem/archive-free/pdf?res=" + d.web_url.split("res=")[1];
         obj.date = d.pub_date.split("T")[0];
 
@@ -218,13 +226,16 @@ request.get({
         if (obj.tweet.indexOf("Obituary ") == -1){
 
           // first time
-          console.log(persons);
-          console.log(obj.tweet);
-          console.log(" ");
-
+          // console.log(persons);
+          // console.log(obj.tweet);
+          // console.log(" ");
+          
+          // once we set the cron job, we'll use this conditional
           // second time
-          // download_convert_post(obj.url, obj.pdf_file_name);
-
+          if (obj.hour_of_tweet == current_hour){
+            download_convert_post(obj.url, obj.pdf_file_name);  
+          }
+          
           // downloads a pdf (and also converts it to an image and posts the tweet)
           function download_convert_post(input, output){
 
