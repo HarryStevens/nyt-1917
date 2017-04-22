@@ -4,6 +4,12 @@
 
 A node script for tweeting New York Times articles about Russia from 100 years ago. Part of [#1917CROWD](https://twitter.com/hashtag/1917CROWD) [#1917LIVE](https://twitter.com/hashtag/1917LIVE).
 
+## Set up
+Apart from Node.js, you will need to have some extra software on your machine.
+```
+brew install imagemagick ghostscript poppler
+```
+
 ## Instructions
 ```
 git clone https://github.com/HarryStevens/nyt-1917

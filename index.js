@@ -3,7 +3,27 @@ var request = require("request"),
 	fs = require("fs"),
   _ = require("underscore"),
 	Twit = require("twit"),
-  moment = require('moment');
+  moment = require("moment"),
+  cheerio = require("cheerio"),
+  http = require("http"),
+  PDFImage = require("pdf-image").PDFImage;
+
+// remove everything in the temp folder
+rmDir = function(dirPath) {
+  try { var files = fs.readdirSync(dirPath); }
+  catch(e) { return; }
+  if (files.length > 0)
+    for (var i = 0; i < files.length; i++) {
+      var filePath = dirPath + '/' + files[i];
+      if (fs.statSync(filePath).isFile())
+        fs.unlinkSync(filePath);
+      else
+        rmDir(filePath);
+    }
+  fs.rmdirSync(dirPath);
+};
+rmDir("temp");
+fs.mkdirSync("temp");
 
 // an array for matching famous people
 var people = [
@@ -26,6 +46,18 @@ var people = [
   {
     name: "TROTZKY, LEON",
     handle: "LeoTrotsky_1917"
+  },
+  {
+    name: "ALFONSO XIII., KING OF SPAIN",
+    handle: "AlfonsoXIII1917"
+  },
+  {
+    name: "LENIN, NIKOLAI",
+    handle: "VLenin_1917"
+  },
+  {
+    name: "GEORGE V., KING OF ENGLAND",
+    handle: "GeorgeV_1917"
   }
 ];
 
@@ -99,8 +131,8 @@ request.get({
   console.log(" ");
 
   // a rate-limited version of the request
-  var makeRequest_limited = _.rateLimit(makeRequest, 5000);
-  for (var i = 0; i < pages; i++){
+  var makeRequest_limited = _.rateLimit(makeRequest, 10000);
+  for (var i = 5; i < pages; i++){
     makeRequest_limited(i);
   }
 
@@ -109,11 +141,11 @@ request.get({
     request.get({
       url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
       qs: {
-        'api-key': key,
+        "api-key": key,
         "fq": query,
-        'begin_date': date.format("YYYYMMDD"),
-        'end_date': date.format("YYYYMMDD"),
-        'page': page
+        "begin_date": date.format("YYYYMMDD"),
+        "end_date": date.format("YYYYMMDD"),
+        "page": page
       },
     }, function(err, response, body) {
       
@@ -131,8 +163,13 @@ request.get({
         obj.url = "http://query.nytimes.com/mem/archive-free/pdf?res=" + d.web_url.split("res=")[1];
         obj.date = d.pub_date.split("T")[0];
 
+        // this is the pdf file name
+        obj.pdf_file_name = "temp/" + obj.date + "_" + obj.page + "_" + obj.page_index + ".pdf";
+
         // create the tweet, including cleaning headline to make more readable
-        var tweet_start = d.headline.main;
+        obj.headline = d.headline.main
+        var tweet_start = obj.headline;
+
         var tweet_end = "#1917LIVE";
 
         // figure out if any of the 1917crowd are mentioned
@@ -142,8 +179,6 @@ request.get({
           return person.value
         });
         obj.people_mentioned = persons;
-
-        console.log(persons);
 
         var lookup = people.map(function(p){
           return p.name
@@ -174,23 +209,121 @@ request.get({
           }
         } 
 
+
         obj.tweet = tweet_start.toTitleCase() + " " + obj.url + " " + tweet_end;
 
-        console.log(obj.tweet);
+        // lose the obituaries of all those people
+        if (obj.tweet.indexOf("Obituary ") == -1){
 
-        // post to twitter
-        // T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
-        //   if (!err){
-        //     console.log(data.text);
-        //     console.log(" ");
-        //   } else {
-        //     console.log(err.message);
-        //   }
-        // });
+          // first time
+          // console.log(persons);
+          // console.log(obj.tweet);
+          // console.log(" ");
 
-        // and we'll save the tweets for fun
-        tweets.push(obj)
-        fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+          // second time
+          download_convert_post(obj.url, obj.pdf_file_name);
+
+          // downloads a pdf (and also converts it to an image and posts the tweet)
+          function download_convert_post(input, output){
+
+            // a stream to write the pdf file for downloading
+            var file = fs.createWriteStream(output); 
+
+            // get the html of the nyt page
+            request(input, function(error, response, body){
+
+              if (!error && response.statusCode == 200){
+                // load cheerio
+                var $ = cheerio.load(body);
+
+                // find the pdf url in the response
+                var pdf = $("iframe").attr("src");
+
+                // time to download the pdf
+                var request = http.get(pdf, function(response) {
+                  
+                  // pipe the response to the file
+                  var stream = response.pipe(file);
+                  
+                  // when it's done, we'll convert to an image and post the tweet
+                  stream.on("finish", function(){
+
+                    // convert to image
+                    var pdfImage = new PDFImage(output);
+                    pdfImage.convertPage(0).then(function (imagePath) {
+                      
+                      //
+                      // post a tweet with media
+                      //
+                      var b64content = fs.readFileSync(imagePath, { encoding: "base64" })
+
+                      // first we must post the media to Twitter
+                      T.post("media/upload", { media_data: b64content }, function (err, data, response) {
+                        
+                        // now we can assign alt text to the media, for use by screen readers and
+                        // other text-based presentations and interpreters
+                        var mediaIdStr = data.media_id_string;
+                        var altText = obj.headline;
+                        var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+
+                        T.post("media/metadata/create", meta_params, function (err, data, response) {
+                          if (!err) {
+                            // now we can reference the media and post a tweet (media will attach to the tweet)
+                            var params = { status: obj.tweet, media_ids: [mediaIdStr] }
+
+                            // post the tweet
+                            T.post("statuses/update", params, function (err, data, response) {
+                              if (!err){
+                                console.log(data.text);
+                                console.log(" ");
+                              } else {
+                                console.log(err.message);
+                              }
+                            });
+
+                            // and we'll save the tweets for fun
+                            tweets.push(obj)
+                            fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+
+                          }
+                        })
+                      })
+
+                      // second time
+                      // post();
+                      
+                    });
+
+
+                    
+
+                  });
+
+                });
+
+              }
+
+            }); 
+
+          }
+
+        }
+
+        // function post(){
+        //   // post to twitter
+        //   T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
+        //     if (!err){
+        //       console.log(data.text);
+        //       console.log(" ");
+        //     } else {
+        //       console.log(err.message);
+        //     }
+        //   });
+
+          
+        // } // end post()
+
+        
 
       });
 
@@ -223,7 +356,7 @@ String.prototype.toTitleCase = function() {
       uppers[i].toUpperCase());
 
   // others
-  [{a:"U.s.",b:"U.S."},{a:"Y.m.c.a",b:"Y.M.C.A"}]
+  [{a:"U.s.",b:"U.S."},{a:"Y.m.c.a",b:"Y.M.C.A"},{a:"E.h.",b:"E.H."},{a:"C.p.",b:"C.P."},{a:"W.s.",b:"W.S."}]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
     });
