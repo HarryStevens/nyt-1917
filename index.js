@@ -248,8 +248,14 @@ request.get({
                   // when it's done, we'll convert to an image and post the tweet
                   stream.on("finish", function(){
 
-                    // convert to image
-                    var pdfImage = new PDFImage(output);
+                    // convert to image, with white background
+                    var pdfImage = new PDFImage(output, {
+                        convertOptions: {
+                            '-background': 'white',
+                            '-flatten': ''
+                        }
+                    });
+
                     pdfImage.convertPage(0).then(function (imagePath) {
                       
                       //
