@@ -226,14 +226,14 @@ request.get({
         if (obj.tweet.indexOf("Obituary ") == -1){
 
           // first time
-          // console.log(persons);
-          // console.log(obj.tweet);
-          // console.log(" ");
+          console.log(persons);
+          console.log(obj.tweet);
+          console.log(" ");
           
           // once we set the cron job, we'll use this conditional
           // second time
           if (obj.hour_of_tweet == current_hour){
-            download_convert_post(obj.url, obj.pdf_file_name);  
+            // download_convert_post(obj.url, obj.pdf_file_name);  
           }
           
           // downloads a pdf (and also converts it to an image and posts the tweet)
