@@ -229,6 +229,9 @@ request.get({
           console.log(persons);
           console.log(obj.tweet);
           console.log(" ");
+          // and we'll save the tweets for fun
+          tweets.push(obj)
+          fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
           
           // once we set the cron job, we'll use this conditional
           // second time
@@ -300,21 +303,13 @@ request.get({
                               }
                             });
 
-                            // and we'll save the tweets for fun
-                            tweets.push(obj)
-                            fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
-
                           }
-                        })
-                      })
+                          
+                        });
 
-                      // second time
-                      // post();
+                      });
                       
                     });
-
-
-                    
 
                   });
 
@@ -327,22 +322,6 @@ request.get({
           }
 
         }
-
-        // function post(){
-        //   // post to twitter
-        //   T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
-        //     if (!err){
-        //       console.log(data.text);
-        //       console.log(" ");
-        //     } else {
-        //       console.log(err.message);
-        //     }
-        //   });
-
-          
-        // } // end post()
-
-        
 
       });
 
