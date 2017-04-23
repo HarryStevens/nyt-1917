@@ -12,25 +12,6 @@ var request = require("request"),
 
 var current_hour = moment().format("H");
 
-// remove everything in the temp folder
-rmDir = function(dirPath) {
-  try { var files = fs.readdirSync(dirPath); }
-  catch(e) { return; }
-  if (files.length > 0)
-    for (var i = 0; i < files.length; i++) {
-      var filePath = dirPath + '/' + files[i];
-      if (fs.statSync(filePath).isFile())
-        fs.unlinkSync(filePath);
-      else
-        rmDir(filePath);
-    }
-  fs.rmdirSync(dirPath);
-};
-rmDir("temp");
-
-// and make it anew
-fs.mkdirSync("temp");
-
 // an array for matching famous people
 var people = [
   {
@@ -107,15 +88,8 @@ _.rateLimit = function(func, rate, async) {
   };
 };
 
-// an empty array
-var tweets = [];
-
 // use moment for date parser
 var date = moment().subtract(100, "years"); // "today", but actually 100 years ago
-
-// log to get started...
-console.log("Getting articles from " + date.format("MMMM Do, YYYY") + ".");
-console.log(" ")
 
 // nyt query
 var key = "6ec2da195c80457a827aa558bbb82f95",
@@ -134,8 +108,6 @@ request.get({
 
   var hits = JSON.parse(body).response.meta.hits;
   var pages = Math.ceil(hits / 10);
-  console.log("Found " + hits + " articles on " + pages + " pages of results.");
-  console.log(" ");
 
   // a rate-limited version of the request
   var makeRequest_limited = _.rateLimit(makeRequest, 10000);
@@ -226,11 +198,6 @@ request.get({
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
-
-          // first time
-          // console.log(persons);
-          // console.log(obj.tweet);
-          // console.log(" ");
           
           // once we set the cron job, we'll use this conditional
           // second time
@@ -302,21 +269,12 @@ request.get({
                               }
                             });
 
-                            // and we'll save the tweets for fun
-                            tweets.push(obj)
-                            fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
-
                           }
-                        })
-                      })
+                        });
 
-                      // second time
-                      // post();
-                      
+                      });
+
                     });
-
-
-                    
 
                   });
 
@@ -329,22 +287,6 @@ request.get({
           }
 
         }
-
-        // function post(){
-        //   // post to twitter
-        //   T.post("statuses/update", { status: obj.tweet }, (err, data, response) => {
-        //     if (!err){
-        //       console.log(data.text);
-        //       console.log(" ");
-        //     } else {
-        //       console.log(err.message);
-        //     }
-        //   });
-
-          
-        // } // end post()
-
-        
 
       });
 
