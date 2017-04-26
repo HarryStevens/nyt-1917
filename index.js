@@ -62,6 +62,10 @@ var people = [
   {
     name: "GEORGE V., KING OF ENGLAND",
     handle: "GeorgeV_1917"
+  },
+  {
+    name: "MCADOO, WILLIAM GIBBS",
+    handle: "WillMcAdoo_1917"
   }
 ];
 
