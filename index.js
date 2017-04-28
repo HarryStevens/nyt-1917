@@ -358,7 +358,15 @@ String.prototype.toTitleCase = function() {
       uppers[i].toUpperCase());
 
   // others
-  [{a:"U.s.",b:"U.S."},{a:"Y.m.c.a",b:"Y.M.C.A"},{a:"E.h.",b:"E.H."},{a:"C.p.",b:"C.P."},{a:"W.s.",b:"W.S."}]
+  [
+    {a:"U.s.",b:"U.S."},
+    {a:"Y.m.c.a",b:"Y.M.C.A"},
+    {a:"E.h.",b:"E.H."},
+    {a:"C.p.",b:"C.P."},
+    {a:"W.s.",b:"W.S."},
+    {a:"A.n.p.a.",b:"A.N.P.A"},
+    {a:";-",b:"; "}
+  ]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
     });
