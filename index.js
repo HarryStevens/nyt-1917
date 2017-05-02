@@ -66,6 +66,10 @@ var people = [
   {
     name: "MCADOO, WILLIAM GIBBS",
     handle: "WillMcAdoo_1917"
+  },
+  {
+    name: "MILUKOFF, PAUL N.",
+    handle: "Milyukov_1917"
   }
 ];
 
@@ -360,7 +364,9 @@ String.prototype.toTitleCase = function() {
     {a:"C.p.",b:"C.P."},
     {a:"W.s.",b:"W.S."},
     {a:"A.n.p.a.",b:"A.N.P.A"},
-    {a:";-",b:"; "}
+    {a:";-",b:"; "},
+    {a:".;",b:"."},
+    {a:"J.a.",b:"J.A."}
   ]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
