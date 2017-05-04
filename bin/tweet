@@ -355,7 +355,21 @@ String.prototype.toTitleCase = function() {
     {a:". t", b:". T"},
     {a:"Futur.",b:"Future."},
     {a:"Wilso.",b:"Wilson."},
-    {a:"Outpu.",b:"Output"}
+    {a:"Outpu.",b:"Output"},
+    {a:"Brazi.",b:"Brazil."},
+    {a:"Repor.",b:"Report."},
+    {a:"Throug. To",b:"Through to"},
+    {a:"Fai. To",b:"Fail to"},
+    {a:"Counci.",b:"Council."},
+    {a:"Motio.",b:"Motion."},
+    {a:"Refuse. To",b:"Refuse to"},
+    {a:"Y.m. C.a.",b:"Y.M.C.A."},
+    {a:"Tribut. To",b:"Tribute to"},
+    {a:"Mov. To",b:"Move to"},
+    {a:"Factorie. To",b:"Factories to"},
+    {a:"Russi. To",b:"Russia to"},
+    {a:"Missio. To",b:"Mission to"},
+    {a:"J.p.",b:"J.P."}
   ]
     .forEach(function(d,i){
       str = replaceAll(str, d.a, d.b);    
