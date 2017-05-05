@@ -223,7 +223,7 @@ request.get({
         } 
 
 
-        obj.tweet = tweet_start.toTitleCase() + " " + tweet_end;
+        obj.tweet = tweet_start + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
@@ -334,67 +334,47 @@ request.get({
 
 });
 
-String.prototype.toTitleCase = function() {
-  var i, j, str, lowers, uppers;
-  str = this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+function toTitleCase(x){
+
+  var ignore = ["A", "An", "The", "And", "But", "Or", "For", "Nor", "As", "At", "By", "For", "From", "In", "Into", "Near", "Of", "On", "Onto", "To", "With"]
+
+  var input_array = x.split(" ");
+  
+  var output_array = input_array.map(function(d, i){
+
+    var period_index = d.indexOf("."),
+      length = d.length;
+    
+    if (period_index != -1 && period_index + 1 != length){
+      return {
+        type: "acronym",
+        word: d
+      };
+    } else {
+      var first_letter = d.charAt(0);
+      var rest_of_string = d.substr(1, length);
+      var last_letter = d.charAt(length - 1);
+      var word = first_letter + rest_of_string.toLowerCase();
+      var type = last_letter == "." ? "end" : ignore.indexOf(word) != -1 ? "preposition" : "normal";
+
+      return {
+        type: type,
+        word: word
+      }
+    }
+
   });
-  
-  // Certain minor words should be left lowercase unless 
-  // they are the first or last words in the string
-  lowers = ['A', 'An', 'The', 'And', 'But', 'Or', 'For', 'Nor', 'As', 'At', 
-  'By', 'For', 'From', 'In', 'Into', 'Near', 'Of', 'On', 'Onto', 'To', 'With'];
-  for (i = 0, j = lowers.length; i < j; i++)
-    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), 
-      function(txt) {
-        return txt.toLowerCase();
-      });
 
-  // Certain words such as initialisms or acronyms should be left uppercase
-  uppers = ['Id', 'Tv'];
-  for (i = 0, j = uppers.length; i < j; i++)
-    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), 
-      uppers[i].toUpperCase());
+  // run through it again to deal with prepositions
+  output_array.forEach(function(d, i){
 
-  // others
-  [
-    {a:"U.s.",b:"U.S."},
-    {a:"Y.m.c.a",b:"Y.M.C.A"},
-    {a:"E.h.",b:"E.H."},
-    {a:"C.p.",b:"C.P."},
-    {a:"W.s.",b:"W.S."},
-    {a:"A.n.p.a.",b:"A.N.P.A"},
-    {a:";-",b:"; "},
-    {a:".;",b:"."},
-    {a:"J.a.",b:"J.A."},
-    {a:"Republi.",b:"Republic."},
-    {a:". t", b:". T"},
-    {a:"Futur.",b:"Future."},
-    {a:"Wilso.",b:"Wilson."},
-    {a:"Outpu.",b:"Output."},
-    {a:"Brazi.",b:"Brazil."},
-    {a:"Repor.",b:"Report."},
-    {a:"Throug. To",b:"Through to"},
-    {a:"Fai. To",b:"Fail to"},
-    {a:"Counci.",b:"Council."},
-    {a:"Motio.",b:"Motion."},
-    {a:"Refuse. To",b:"Refuse to"},
-    {a:"Y.m. C.a.",b:"Y.M.C.A."},
-    {a:"Tribut. To",b:"Tribute to"},
-    {a:"Mov. To",b:"Move to"},
-    {a:"Factorie. To",b:"Factories to"},
-    {a:"Russi. To",b:"Russia to"},
-    {a:"Missio. To",b:"Mission to"},
-    {a:"J.p.",b:"J.P."}
-  ]
-    .forEach(function(d,i){
-      str = replaceAll(str, d.a, d.b);    
-    });
-  
-  function replaceAll(string, search, replacement) {
-    var target = string;
-    return target.replace(new RegExp(search, 'g'), replacement);
-  };
+    if (d.type == "preposition" && output_array[i].type != "end"){
+      d.word = d.word.toLowerCase();
+    }
 
-  return str;
+    return d;
+
+  });
+
+  return output_array.map(function(d){ return d.word; }).join(" ");
 }
