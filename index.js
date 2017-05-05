@@ -73,9 +73,6 @@ var people = [
   }
 ];
 
-// the length of a tweet url
-// var url_len = 0;
-
 // a new Twit instance
 var T = new Twit({
   consumer_key: "OtNYj1vCYvzir6YTfUBcieRD9",
@@ -222,8 +219,7 @@ request.get({
 
         } 
 
-
-        obj.tweet = tweet_start + " " + tweet_end;
+        obj.tweet = toTitleCase(tweet_start) + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
@@ -336,45 +332,144 @@ request.get({
 
 function toTitleCase(x){
 
-  var ignore = ["A", "An", "The", "And", "But", "Or", "For", "Nor", "As", "At", "By", "For", "From", "In", "Into", "Near", "Of", "On", "Onto", "To", "With"]
-
-  var input_array = x.split(" ");
+  var punctuation = "~`!@#$%^&*()_+-={}|[];:,./<>?";
+  var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
+  var uppercase = lowercase.map(function(d){ return d.toUpperCase(); });
+  var smalls = ["as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
   
-  var output_array = input_array.map(function(d, i){
+  var words = x.split(" "),
+    word_count = words.length;
 
-    var period_index = d.indexOf("."),
-      length = d.length;
+  var meta_data = words.map(function(word, word_index){
+
+    var obj = {};
+    obj.word = word;
+    obj.word_index = word_index + 1;
+
+    // first, determine if the word ends with punctuation
+    var chars = word.split(""),
+      char_count = chars.length;
+
+    obj.char_count = char_count;
+
+    // get meta data for each character
+    meta_chars = chars.map(function(char, char_index){
+      var obj = {};
+
+      obj.index = char_index + 1;
+      obj.character = char;
+      obj.type = punctuation.indexOf(char) != -1 ? "punctuation" : lowercase.indexOf(char) != -1 ? "lowercase" : uppercase.indexOf(char) != -1 ? "uppercase" : "other";
+
+      return obj;
+    });
     
-    if (period_index != -1 && period_index + 1 != length){
-      return {
-        type: "acronym",
-        word: d
-      };
-    } else {
-      var first_letter = d.charAt(0);
-      var rest_of_string = d.substr(1, length);
-      var last_letter = d.charAt(length - 1);
-      var word = first_letter + rest_of_string.toLowerCase();
-      var type = last_letter == "." ? "end" : ignore.indexOf(word) != -1 ? "preposition" : "normal";
+    obj.meta_chars = meta_chars;
 
-      return {
-        type: type,
-        word: word
-      }
+    var last_letter_index = meta_chars.filter(function(object){
+      return (object.type == "lowercase" || object.type == "uppercase")
+    }).map(function(d){ return d.index; });
+    last_letter_index = last_letter_index[last_letter_index.length - 1];
+
+    var first_punctuation_index = meta_chars.filter(function(object){
+      return (object.type == "punctuation" || object.type == "other")
+    }).map(function(d){ return d.index; })
+    first_punctuation_index = first_punctuation_index[0];
+
+    var contains_punctuation = chars.map(function(d){ return punctuation.indexOf(d) == -1 ? false : true; })
+    
+    obj.has_punctuation = contains_punctuation.indexOf(true) != -1 ? true : false;
+
+    obj.is_acronym = false;
+    // now see if it's an acronym
+    if (obj.has_punctuation && last_letter_index > first_punctuation_index) {
+      obj.is_acronym = true;
+    }
+
+    // see if it ends a sentence
+    obj.is_end_of_sentence = false;
+    if (!obj.is_acronym && char_count > last_letter_index){
+      obj.is_end_of_sentence = true;
+    }
+
+    // see if it is a preposition
+    obj.is_small = false;
+
+    var no_punct = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    var no_punct_final = no_punct.replace(/\s{2,}/g," ").toLowerCase();
+    if (smalls.indexOf(no_punct_final) != -1){
+      obj.is_small = true;
+    }
+
+    //TODO Add other potential acronyms
+
+    // TODO Deal with hyphens
+
+    return obj;
+
+  });
+
+  // more meta data processing
+  meta_data.forEach(function(d, i){
+
+    d.is_start_of_sentence = false;
+
+    if (meta_data[i-1] != undefined && meta_data[i - 1].is_end_of_sentence || i == 0){
+      d.is_start_of_sentence = true;
     }
 
   });
 
-  // run through it again to deal with prepositions
-  output_array.forEach(function(d, i){
+  // now lets capitalize and whatnot
+  meta_data.forEach(function(d, i){
 
-    if (d.type == "preposition" && output_array[i].type != "end"){
-      d.word = d.word.toLowerCase();
+    d.final_word = d.word;
+
+    if (d.is_acronym){
+      var split = d.final_word.replace(/[^\w\s]|_/g, function ($1) { return ' ' + $1 + ' ';}).replace(/[ ]+/g, ' ').split(' ');
+      d.final_word = split.map(function(e){ return toStartCase(e); }).join("");
+    } else {
+
+      if (d.is_start_of_sentence){
+        d.final_word = toStartCase(d.final_word);
+      } else {
+        
+        // run the prepositions
+        if (d.is_small){
+          d.final_word = d.final_word.toLowerCase();
+        } else {
+          d.final_word = toStartCase(d.final_word);
+        }
+
+      }
+
     }
+
+    // last replacements
+    var last_replacements = [
+      {a: '"PAPA"', b: '"Papa"'},
+      {a: "Declineof", b: "Decline of"}
+    ];
+
+    last_replacements.forEach(function(replacement){
+
+      if (d.word == replacement.a){
+        d.final_word = replacement.b
+      }
+
+    });
 
     return d;
 
   });
 
-  return output_array.map(function(d){ return d.word; }).join(" ");
+  var final_words = meta_data.map(function(d){ return d.final_word; });
+
+  function toStartCase(x){
+    var first = x.charAt(0);
+    var rest = x.substr(1, x.length -1);
+    return first.toUpperCase() + rest.toLowerCase();
+  }
+
+  return final_words.join(" ");
+
 }
