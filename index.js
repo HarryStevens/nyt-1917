@@ -335,7 +335,7 @@ function toTitleCase(x){
   var punctuation = "~`!@#$%^&*()_+-={}|[];:,./<>?";
   var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
   var uppercase = lowercase.map(function(d){ return d.toUpperCase(); });
-  var smalls = ["as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
+  var smalls = ["us", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
   
   var words = x.split(" "),
     word_count = words.length;
@@ -447,7 +447,9 @@ function toTitleCase(x){
     // last replacements
     var last_replacements = [
       {a: '"PAPA"', b: '"Papa"'},
-      {a: "Declineof", b: "Decline of"}
+      {a: "Declineof", b: "Decline of"},
+      {a: '"christian"', b: '"Christian"'},
+      {a: '"criminal"', b: '"Criminal"'}
     ];
 
     last_replacements.forEach(function(replacement){
