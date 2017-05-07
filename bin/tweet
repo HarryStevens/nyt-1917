@@ -319,7 +319,7 @@ function toTitleCase(x){
   var punctuation = "~`!@#$%^&*()_+-={}|[];:,./<>?";
   var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
   var uppercase = lowercase.map(function(d){ return d.toUpperCase(); });
-  var smalls = ["us", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
+  var smalls = ["from", "our", "at", "us", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
   
   var words = x.split(" "),
     word_count = words.length;
