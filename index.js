@@ -70,6 +70,10 @@ var people = [
   {
     name: "MILUKOFF, PAUL N.",
     handle: "Milyukov_1917"
+  },
+  {
+    name: "LUXEMBURG, ROSA",
+    handle: "luxemburgquotes"
   }
 ];
 
