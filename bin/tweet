@@ -328,7 +328,12 @@ function toTitleCase(x){
   var quote_marks = "\"'";
   var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
   var uppercase = lowercase.map(function(d){ return d.toUpperCase(); });
-  var smalls = ["from", "at", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "onto", "with", "without", "upon"];
+  
+  // articles, conjunctions, prepositions -- fewer than 5 letters
+  var smalls = [];
+  var articles = ["a", "an", "the"].forEach(function(d){ smalls.push(d); })
+  var conjunctions = ["and", "or", "so"].forEach(function(d){ smalls.push(d); })
+  var prepositions = ["as", "at", "by", "into", "it", "in", "for", "from", "of", "onto", "on", "out", "to", "up", "upon", "with"].forEach(function(d){ smalls.push(d); });
   
   var words = x.split(" "),
     word_count = words.length;
@@ -447,19 +452,6 @@ function toTitleCase(x){
     if (d.is_quote_start){
       d.final_word = replaceAt(d.final_word, 1, d.final_word[1].toUpperCase())
     }
-
-    // last replacements
-    var last_replacements = [
-      {a: "Declineof", b: "Decline of"}
-    ];
-
-    last_replacements.forEach(function(replacement){
-
-      if (d.word == replacement.a){
-        d.final_word = replacement.b
-      }
-
-    });
 
     return d;
 
