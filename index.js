@@ -74,6 +74,10 @@ var people = [
   {
     name: "LUXEMBURG, ROSA",
     handle: "luxemburgquotes"
+  },
+  {
+    name: "KORNILOFF",
+    handle: "GenKornilov1917"
   }
 ];
 
