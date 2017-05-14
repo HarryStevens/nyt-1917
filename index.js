@@ -227,18 +227,21 @@ request.get({
 
         } 
 
+        console.log(tweet_start);
+        console.log(" ");
+
         obj.tweet = toTitleCase(tweet_start) + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
 
-          // first time
-          console.log(persons);
-          console.log(obj.tweet);
-          console.log(" ");
-          // and we'll save the tweets for fun
-          tweets.push(obj)
-          fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+          // // first time
+          // console.log(persons);
+          // console.log(obj.tweet);
+          // console.log(" ");
+          // // and we'll save the tweets for fun
+          // tweets.push(obj)
+          // fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
           
           // once we set the cron job, we'll use this conditional
           // second time
@@ -341,9 +344,10 @@ request.get({
 function toTitleCase(x){
 
   var punctuation = "~`!@#$%^&*()_+-={}|[];:,./<>?";
+  var quote_marks = "\"'";
   var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
   var uppercase = lowercase.map(function(d){ return d.toUpperCase(); });
-  var smalls = ["from", "our", "at", "us", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "be", "is", "onto", "with", "without", "upon"];
+  var smalls = ["from", "at", "up", "by", "as", "into", "it", "a", "do", "so", "the", "or", "and", "in", "on", "out", "for", "of", "to", "onto", "with", "without", "upon"];
   
   var words = x.split(" "),
     word_count = words.length;
@@ -367,10 +371,11 @@ function toTitleCase(x){
       obj.index = char_index + 1;
       obj.character = char;
       obj.type = punctuation.indexOf(char) != -1 ? "punctuation" : lowercase.indexOf(char) != -1 ? "lowercase" : uppercase.indexOf(char) != -1 ? "uppercase" : "other";
+      obj.quote = quote_marks.indexOf(char) != -1 ? true : false;
 
       return obj;
     });
-    
+
     obj.meta_chars = meta_chars;
 
     var last_letter_index = meta_chars.filter(function(object){
@@ -399,13 +404,19 @@ function toTitleCase(x){
       obj.is_end_of_sentence = true;
     }
 
-    // see if it is a preposition
+    // see if it is a preposition or contractions
     obj.is_small = false;
 
     var no_punct = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     var no_punct_final = no_punct.replace(/\s{2,}/g," ").toLowerCase();
     if (smalls.indexOf(no_punct_final) != -1){
       obj.is_small = true;
+    }
+
+    // see if it is a quote
+    obj.is_quote_start = false;
+    if (obj.meta_chars[0].quote){
+      obj.is_quote_start = true;
     }
 
     //TODO Add other potential acronyms
@@ -452,12 +463,13 @@ function toTitleCase(x){
 
     }
 
+    if (d.is_quote_start){
+      d.final_word = replaceAt(d.final_word, 1, d.final_word[1].toUpperCase())
+    }
+
     // last replacements
     var last_replacements = [
-      {a: '"PAPA"', b: '"Papa"'},
-      {a: "Declineof", b: "Decline of"},
-      {a: '"christian"', b: '"Christian"'},
-      {a: '"criminal"', b: '"Criminal"'}
+      {a: "Declineof", b: "Decline of"}
     ];
 
     last_replacements.forEach(function(replacement){
@@ -478,6 +490,10 @@ function toTitleCase(x){
     var first = x.charAt(0);
     var rest = x.substr(1, x.length -1);
     return first.toUpperCase() + rest.toLowerCase();
+  }
+
+  function replaceAt(string, index, replacement){
+    return string.substr(0, index) + replacement + string.substr(index + replacement.length);
   }
 
   return final_words.join(" ");
