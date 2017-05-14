@@ -227,18 +227,19 @@ request.get({
 
         } 
 
+        console.log(tweet_start);
         obj.tweet = toTitleCase(tweet_start) + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
 
-          // first time
-          console.log(persons);
-          console.log(obj.tweet);
-          console.log(" ");
-          // and we'll save the tweets for fun
-          tweets.push(obj)
-          fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+          // // first time
+          // console.log(persons);
+          // console.log(obj.tweet);
+          // console.log(" ");
+          // // and we'll save the tweets for fun
+          // tweets.push(obj)
+          // fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
           
           // once we set the cron job, we'll use this conditional
           // second time
@@ -348,8 +349,8 @@ function toTitleCase(x){
   // articles, conjunctions, prepositions -- fewer than 5 letters
   var smalls = [];
   var articles = ["a", "an", "the"].forEach(function(d){ smalls.push(d); })
-  var conjunctions = ["and", "or", "so"].forEach(function(d){ smalls.push(d); })
-  var prepositions = ["as", "at", "by", "into", "it", "in", "for", "from", "of", "onto", "on", "out", "to", "up", "upon", "with"].forEach(function(d){ smalls.push(d); });
+  var conjunctions = ["and", "but", "or", "nor", "so"].forEach(function(d){ smalls.push(d); })
+  var prepositions = ["as", "at", "by", "into", "it", "in", "for", "from", "of", "onto", "on", "out", "per", "to", "up", "upon", "with"].forEach(function(d){ smalls.push(d); });
   
   var words = x.split(" "),
     word_count = words.length;
@@ -395,8 +396,8 @@ function toTitleCase(x){
     obj.has_punctuation = contains_punctuation.indexOf(true) != -1 ? true : false;
 
     obj.is_acronym = false;
-    // now see if it's an acronym
-    if (obj.has_punctuation && last_letter_index > first_punctuation_index) {
+    // now see if it's an acronym, and be sure to ignore possessive words
+    if (obj.has_punctuation && last_letter_index > first_punctuation_index && obj.word[first_punctuation_index - 1] != "'") {
       obj.is_acronym = true;
     }
 
