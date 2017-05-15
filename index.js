@@ -78,6 +78,10 @@ var people = [
   {
     name: "KORNILOFF",
     handle: "GenKornilov1917"
+  },
+  {
+    name: "GUCHKOFF, ALEXANDER J.",
+    handle: "Guchkov_1917"
   }
 ];
 
@@ -227,19 +231,19 @@ request.get({
 
         } 
 
-        console.log(tweet_start);
+        // console.log(tweet_start);
         obj.tweet = toTitleCase(tweet_start) + " " + tweet_end;
 
         // lose the obituaries of all those people
         if (obj.tweet.indexOf("Obituary ") == -1){
 
-          // // first time
-          // console.log(persons);
-          // console.log(obj.tweet);
-          // console.log(" ");
-          // // and we'll save the tweets for fun
-          // tweets.push(obj)
-          // fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+          // first time
+          console.log(persons);
+          console.log(obj.tweet);
+          console.log(" ");
+          // and we'll save the tweets for fun
+          tweets.push(obj)
+          fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
           
           // once we set the cron job, we'll use this conditional
           // second time

@@ -80,6 +80,10 @@ var people = [
   {
     name: "KORNILOFF",
     handle: "GenKornilov1917"
+  },
+  {
+    name: "GUCHKOFF, ALEXANDER J.",
+    handle: "Guchkov_1917"
   }
 ];
 
