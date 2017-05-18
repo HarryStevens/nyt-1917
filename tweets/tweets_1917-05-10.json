@@ -1,0 +1,316 @@
+[
+  {
+    "page": 1,
+    "page_index": 1,
+    "tweet_number": 1,
+    "hour_of_tweet": 1,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9501E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_1.pdf",
+    "headline": "GERMANS EXTRACTING OIL FROM GRAIN GERMS; Albuminous Powder from Same Source Said to be Used as Substitute for Egg.",
+    "people_mentioned": [],
+    "tweet": "Germans Extracting Oil from Grain Germs; Albuminous Powder from Same Source Said to be Used as Substitute for Egg. #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 2,
+    "tweet_number": 2,
+    "hour_of_tweet": 2,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9805E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_2.pdf",
+    "headline": "RUSSIAN CABINET SEEKS COALITION; Declares Its Task Is Rendered Too Difficult by Independent Action of Groups. GRAVE MENACE TO NATION Calls on Council of Workmen's and Soldiers' Deputies to Bear Its Share of the Burden.",
+    "people_mentioned": [
+      "KERENSKY, ALEXANDER F."
+    ],
+    "tweet": "Russian Cabinet Seeks Coalition; Declares Its Task is Rendered Too Difficult by Independent Action of Groups.... #1917LIVE @Kerensky_1917"
+  },
+  {
+    "page": 1,
+    "page_index": 4,
+    "tweet_number": 4,
+    "hour_of_tweet": 4,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9B0DE3DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_4.pdf",
+    "headline": "MAKES SMALLEST LIBERTY BOND $50; McAdoo Issues Statement of Terms;-2% First Payment ;-Four Installments. TO BE NO OVERALLOTMENT. Issue Restricted to $2,000,000,000;-Day's Subscriptions Show Some Falling Off. Secretary McAdoo's Circular. MAKES SMALLEST LIBERTY BOND $50 Subscriptions Fall Off. Vogel Subscribes $100,000.",
+    "people_mentioned": [
+      "MCADOO, WILLIAM GIBBS"
+    ],
+    "tweet": "Makes Smallest Liberty Bond $50; Mcadoo Issues Statement of Terms;-2% First Payment ;-Four Installments. To... #1917LIVE @WillMcAdoo_1917"
+  },
+  {
+    "page": 1,
+    "page_index": 5,
+    "tweet_number": 5,
+    "hour_of_tweet": 5,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9B02E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_5.pdf",
+    "headline": "POPULARIZING THE LIBERTY LOAN.",
+    "people_mentioned": [],
+    "tweet": "Popularizing the Liberty Loan. #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 6,
+    "tweet_number": 6,
+    "hour_of_tweet": 6,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9F02E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_6.pdf",
+    "headline": "TONNAGE OF 90,000 RELEASED TO ALLIES; Concessions to Sweden Said to Require Reopening of Baltic Route to British.",
+    "people_mentioned": [],
+    "tweet": "Tonnage of 90,000 Released to Allies; Concessions to Sweden Said to Require Reopening of Baltic Route to British. #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 7,
+    "tweet_number": 7,
+    "hour_of_tweet": 7,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9501EFDE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_7.pdf",
+    "headline": "ENGLAND RESUMES SHIPMENT OF GOLD; Morgans Get $16,000,000 from Canada, the First Since We Entered the War. NO BIG IMPORTS EXPECTED Arrival of Metal Regarded as Indication That Britain Will Aid Local Money Market.",
+    "people_mentioned": [],
+    "tweet": "England Resumes Shipment of Gold; Morgans Get $16,000,000 from Canada, The First Since We Entered the War. No Big Imports... #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 8,
+    "tweet_number": 8,
+    "hour_of_tweet": 8,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9C04E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_8.pdf",
+    "headline": "JOFFRE AS CALM AS IF IN BATTLE; Watched Crowd in City Hall with Keen and Analytical Eyes. POISE OF A GREAT SOLDIER Smiled but Seldom While New York Honored the Man Who \"Saved Civilization at the Marne.\" Kept His Body Still. More French Than Viviani. The Man for the Hour.",
+    "people_mentioned": [],
+    "tweet": "Joffre as Calm as If in Battle; Watched Crowd in City Hall with Keen and Analytical Eyes. Poise of a Great Soldier Smiled But... #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 9,
+    "tweet_number": 9,
+    "hour_of_tweet": 9,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9505E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_9.pdf",
+    "headline": "RAILROAD COMMISSION STARTS FOR PETROGRAD; Stevens Made Minister Plenipotentiary to Russian Government ;-Personnel of Board.",
+    "people_mentioned": [],
+    "tweet": "Railroad Commission Starts for Petrograd; Stevens Made Minister Plenipotentiary to Russian Government ;-Personnel of Board. #1917LIVE"
+  },
+  {
+    "page": 1,
+    "page_index": 10,
+    "tweet_number": 10,
+    "hour_of_tweet": 10,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9D0DE1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_1_10.pdf",
+    "headline": "THE GERMAN PEACE MOVEMENT.",
+    "people_mentioned": [],
+    "tweet": "The German Peace Movement. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 1,
+    "tweet_number": 11,
+    "hour_of_tweet": 11,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9407E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_1.pdf",
+    "headline": "CAMBON SAYS WAR NOW DEPENDS ON US; America's Might Counted On to Offset Russia's Inactivity Due to Internal Problems. ALLIES MAY MEET IN RUSSIA Suggestion That Inter-Allied Parliament Will Become Permanent, Supplanting Hague Tribunal.",
+    "people_mentioned": [
+      "CAMBON, JULES"
+    ],
+    "tweet": "Cambon Says War Now Depends on us; America's Might Counted on to Offset Russia's Inactivity Due to Internal Problems. Allies... #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 2,
+    "tweet_number": 12,
+    "hour_of_tweet": 12,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9905E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_2.pdf",
+    "headline": "HIS PASSPORTS REVOKED.; Reinstein Not to be Allowed to Leave for Russia.",
+    "people_mentioned": [
+      "REINSTEIN, BORIS"
+    ],
+    "tweet": "His Passports Revoked.; Reinstein Not to be Allowed to Leave for Russia. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 3,
+    "tweet_number": 13,
+    "hour_of_tweet": 12,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9B05E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_3.pdf",
+    "headline": "CRISIS AT FRONT PASSING.; Some Regiments Hostile to Comrades Who Fraternize with Enemy.",
+    "people_mentioned": [
+      "BAILEY, HERBERT"
+    ],
+    "tweet": "Crisis at Front Passing.; Some Regiments Hostile to Comrades Who Fraternize with Enemy. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 4,
+    "tweet_number": 14,
+    "hour_of_tweet": 13,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9800E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_4.pdf",
+    "headline": "PRAISES BRITISH ADVANCE.; So Perfectly Organized, Kipling Says, That Germans Can't Stop It.",
+    "people_mentioned": [
+      "KIPLING, RUDYARD"
+    ],
+    "tweet": "Praises British Advance.; So Perfectly Organized, Kipling Says, That Germans Can't Stop it. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 5,
+    "tweet_number": 15,
+    "hour_of_tweet": 14,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9A05E1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_5.pdf",
+    "headline": "RUSSIAN SOCIALISTS TURN ON GERMAN AGENT; Won't Deal with Danish Pacifist or with Scheidemann, the German Socialist Leader. Hillquit Answers Accusers.",
+    "people_mentioned": [
+      "SCHEIDEMANN, PHILIPP",
+      "BORGBJERG, JEPPE",
+      "HILLQUIT, MORRIS"
+    ],
+    "tweet": "Russian Socialists Turn on German Agent; Won't Deal with Danish Pacifist or with Scheidemann, The German Socialist Leader.... #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 6,
+    "tweet_number": 16,
+    "hour_of_tweet": 15,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9E03E0DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_6.pdf",
+    "headline": "WANTED GERMANY TO BUY ALL MUNITIONS; Andrew D. Meloy Swears He Interested von Rintelen in a \"Legal Scheme.\" LAMAR ACCUSED GOMPERS Told German Agent Labor Leader Got $12,500 a Month to Prevent Strikes That Hurt Allies.",
+    "people_mentioned": [],
+    "tweet": "Wanted Germany to Buy All Munitions; Andrew D. Meloy Swears He Interested Von Rintelen in a \"legal Scheme.\" Lamar Accused... #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 7,
+    "tweet_number": 17,
+    "hour_of_tweet": 16,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9400E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_7.pdf",
+    "headline": "CHINA STILL HESITATES.; Cabinet Urges War Declaration, but Parliament Waits.",
+    "people_mentioned": [
+      "TUAN CHI-JUI"
+    ],
+    "tweet": "China Still Hesitates.; Cabinet Urges War Declaration, But Parliament Waits. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 8,
+    "tweet_number": 18,
+    "hour_of_tweet": 17,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9A06E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_8.pdf",
+    "headline": "TURKS READY TO OPEN DARDANELLES TO ALL; Agents in Switzerland Seeking Now to Save Turkey, London Hears Officially. Russians for Free Dardanelles.",
+    "people_mentioned": [],
+    "tweet": "Turks Ready to Open Dardanelles to All; Agents in Switzerland Seeking Now to Save Turkey, London Hears Officially. Russians... #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 9,
+    "tweet_number": 19,
+    "hour_of_tweet": 18,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=950DE1DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_9.pdf",
+    "headline": "GET RID OF GERMAN NAMES.; Applications to Courts to Change Them for Business Reasons.",
+    "people_mentioned": [],
+    "tweet": "Get Rid of German Names.; Applications to Courts to Change Them for Business Reasons. #1917LIVE"
+  },
+  {
+    "page": 2,
+    "page_index": 10,
+    "tweet_number": 20,
+    "hour_of_tweet": 19,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=990DE3DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_2_10.pdf",
+    "headline": "Liberian Republic Breaks with German Government",
+    "people_mentioned": [],
+    "tweet": "Liberian Republic Breaks with German Government #1917LIVE"
+  },
+  {
+    "page": 3,
+    "page_index": 1,
+    "tweet_number": 21,
+    "hour_of_tweet": 20,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9405E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_3_1.pdf",
+    "headline": "France Fights for the World, Says Viviani; America Heartens Her For New Sacrifices; America's Time of Action. France's Martyrdom in War. True to Lafayette's Spirit War Acclaimed in West. Joffre's Heroic Army. Conscription Saved France. Crowd in Mood to Cheer. Choate Tells of Debt to France. Ready to Shed Nation's Blood. Hats in the Air for Viviani. Marshal of France Presented.",
+    "people_mentioned": [
+      "VIVIANI, RENE"
+    ],
+    "tweet": "France Fights for the World, Says Viviani; America Heartens Her for New Sacrifices; America's Time of Action. France'S... #1917LIVE"
+  },
+  {
+    "page": 3,
+    "page_index": 2,
+    "tweet_number": 22,
+    "hour_of_tweet": 21,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9A02E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_3_2.pdf",
+    "headline": "DE CHAIR PREDICTS CURB ON U-BOATS; Admiral Says British Experts Are at Work on Devices That Give High Promise. Confident of Success. Lays Stress on New Devices.",
+    "people_mentioned": [
+      "CHAIR, DUDLEY R. S. DE"
+    ],
+    "tweet": "De Chair Predicts Curb on U-Boats; Admiral Says British Experts Are at Work on Devices That Give High Promise. Confident of... #1917LIVE"
+  },
+  {
+    "page": 3,
+    "page_index": 3,
+    "tweet_number": 23,
+    "hour_of_tweet": 22,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9900EFDE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_3_3.pdf",
+    "headline": "NEW INCORPORATIONS",
+    "people_mentioned": [],
+    "tweet": "New Incorporations #1917LIVE"
+  },
+  {
+    "page": 3,
+    "page_index": 4,
+    "tweet_number": 24,
+    "hour_of_tweet": 23,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9A0DE3DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_3_4.pdf",
+    "headline": "GERMANY TO MAKE NEW PEACE OFFER AT AN EARLY DATE; Bethmann Was to Answer Interpellations Monday;-May Now Present Wide Program HERTLING RAISES A STORM Bavarian Premier's Organ Is Sharply Criticised for Talking of 'No Indemnities.' HE WANTS COLONIES BACK And All of Germany's Ships Also;- Frankfort Paper Skeptical About Reforms. Wants Colonies Back, No Indemnities. GERMANY TO MAKE NEW PEACE OFFER Bitter Toward Bavaria and Austria.",
+    "people_mentioned": [
+      "CZERNIN VON CHUDENITZ, OTTOKAR VON",
+      "HERTLING",
+      "REVENTLOW, ERNST VON"
+    ],
+    "tweet": "Germany to Make New Peace Offer at An Early Date; Bethmann Was to Answer Interpellations Monday;-May Now Present Wide Program... #1917LIVE"
+  },
+  {
+    "page": 3,
+    "page_index": 5,
+    "tweet_number": 25,
+    "hour_of_tweet": 24,
+    "url": "http://query.nytimes.com/mem/archive-free/pdf?res=9B07E2DE123AE433A25753C1A9639C946696D6CF",
+    "date": "1917-05-10",
+    "pdf_file_name": "temp/1917-05-10_3_5.pdf",
+    "headline": "WEST ASTOUNDED MISSION.; French Deeply Impressed by Enthusiasm on All Sides.",
+    "people_mentioned": [],
+    "tweet": "West Astounded Mission.; French Deeply Impressed by Enthusiasm on All Sides. #1917LIVE"
+  }
+]
