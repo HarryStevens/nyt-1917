@@ -40,6 +40,10 @@ var people = [
     handle: "NicholasII_1917"
   },
   {
+    name: "NICHOLAS II.,",
+    handle: "NicholasII_1917"
+  },
+  {
     name: "KERENSKY, ALEXANDER F.",
     handle: "Kerensky_1917"
   },
@@ -86,6 +90,10 @@ var people = [
   {
     name: "BRUSILOFF, ALEXIS",
     handle: "GenBrusilov1917"
+  },
+  {
+    name: "LVOFF, GEORGE E.",
+    handle: "PrinceLvov_1917"
   }
 ];
 
