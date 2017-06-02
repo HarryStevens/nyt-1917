@@ -94,8 +94,20 @@ var people = [
     handle: "GenBrusilov1917"
   },
   {
+    name: "BRUSILOFF, ALEXEI A.",
+    handle: "GenBrusilov1917"
+  },
+  {
     name: "LVOFF, GEORGE E.",
     handle: "PrinceLvov_1917"
+  },
+  {
+    name: "MOLOTOFF, VIACHESLAV MICHAELOVICH",
+    handle: "Molotov_1917"
+  },
+  {
+    name: "RODZIANKO, MICHAEL",
+    handle: "MRodzianko_1917"
   }
 ];
 
