@@ -132,7 +132,7 @@ function toTitleCase(x){
 
     }
 
-    if (d.is_quote_start){
+    if (d.is_quote_start && d.final_word[1] != undefined){
       d.final_word = replaceAt(d.final_word, 1, d.final_word[1].toUpperCase())
     }
 
