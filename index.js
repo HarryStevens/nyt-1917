@@ -44,6 +44,10 @@ var people = [
     handle: "NicholasII_1917"
   },
   {
+    name: "ALEXANDRA FEODOROVNA, CZARINA OF RUSSIA",
+    handle: "EmpressAlix1917"
+  },
+  {
     name: "KERENSKY, ALEXANDER F.",
     handle: "Kerensky_1917"
   },
@@ -106,6 +110,46 @@ var people = [
   {
     name: "RODZIANKO, MICHAEL",
     handle: "MRodzianko_1917"
+  },
+  {
+    name: "ALEXEIEFF, MICHAEL V.",
+    handle: "GenAlexeev_1917 "
+  },
+  {
+    name: "FREUD, SIGMUND",
+    handle: "SigmundFreud_BP"
+  },
+  {
+    name: "CLEMENCEAU, GEORGES",
+    handle: "Clemenceau_BP"
+  },
+  {
+    name: "BERTIE, FRANCIS LEVESON",
+    handle: "WW1Bertie"
+  },
+  {
+    name: "KROPOTKIN , PETER",
+    handle: "PKropotkin_1917‏"
+  },
+  {
+    name: "KROPOTKIN, PETER",
+    handle: "PKropotkin_1917‏"
+  },
+  {
+    name: "KROPOTKIN, PETER ALEXEIEVITCH",
+    handle: "PKropotkin_1917‏"
+  },
+  {
+    name: "KROPOTKIN , PETER ALEXEIVICH",
+    handle: "PKropotkin_1917‏"
+  },
+  {
+    name: "POINCARE, RAYMOND",
+    handle: "RPoincare_1917"
+  },
+  {
+    name: "BUBLIKOFF, ALEXANDER ALEXANDROVITCH",
+    handle: "Bublikov_1917"
   }
 ];
 
