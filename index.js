@@ -150,6 +150,10 @@ var people = [
   {
     name: "BUBLIKOFF, ALEXANDER ALEXANDROVITCH",
     handle: "Bublikov_1917"
+  },
+  {
+    name: "TSERETELLI",
+    handle: "Mensheviks_1917"
   }
 ];
 
