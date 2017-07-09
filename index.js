@@ -6,7 +6,8 @@ var request = require("request"),
   moment = require("moment"),
   cheerio = require("cheerio"),
   http = require("http"),
-  PDFImage = require("pdf-image").PDFImage;
+  PDFImage = require("pdf-image").PDFImage,
+  jz = require("jeezy");
 
 var current_hour = moment().format("H");
 
