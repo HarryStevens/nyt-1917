@@ -295,9 +295,9 @@ request.get({
 
         // the tweet content is dependent upon the length of the headline
         // if the headline is too long, we'll cut it off, if necessary adding 3 dots
-        if (tweet_start.length > (140 - end_len - 3)) {
+        if (tweet_start.length > (280 - end_len - 3)) {
 
-          tweet_start = tweet_start.substr(0, (140 - end_len - 3));
+          tweet_start = tweet_start.substr(0, (280 - end_len - 3));
           // put the elipses after the space
           var li = tweet_start.lastIndexOf(" ");
           tweet_start = tweet_start.substr(0, li) + "...";
@@ -315,8 +315,8 @@ request.get({
           console.log(obj.tweet);
           console.log(" ");
           // and we'll save the tweets for fun
-          tweets.push(obj)
-          fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
+          // tweets.push(obj)
+          // fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
           
           // once we set the cron job, we'll use this conditional
           // second time
