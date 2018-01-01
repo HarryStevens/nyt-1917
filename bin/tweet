@@ -208,7 +208,7 @@ request.get({
   url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
   qs: {
     "api-key": key,
-    "fq": query,
+    // "fq": query,
     "begin_date": date.format("YYYYMMDD"),
     "end_date": date.format("YYYYMMDD"),
   },
@@ -262,7 +262,7 @@ request.get({
         obj.headline = d.headline.main
         var tweet_start = obj.headline;
 
-        var tweet_end = "#1917LIVE";
+        var tweet_end = "#" + date.format("YYYY") + "LIVE";
 
         // figure out if any of the 1917crowd are mentioned
         var persons = d.keywords.filter(function(key){
