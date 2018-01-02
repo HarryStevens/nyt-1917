@@ -214,7 +214,7 @@ request.get({
   url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
   qs: {
     "api-key": key,
-    // "fq": query,
+    "fq": query,
     "begin_date": date.format("YYYYMMDD"),
     "end_date": date.format("YYYYMMDD"),
   },
