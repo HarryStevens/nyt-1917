@@ -294,7 +294,7 @@ request.get({
           var li = tweet_start.lastIndexOf(" ");
           tweet_start = tweet_start.substr(0, li) + "...";
 
-        } 
+        }
 
         obj.tweet = toTitleCase(tweet_start) + " " + tweet_end;
 
@@ -304,7 +304,16 @@ request.get({
           // once we set the cron job, we'll use this conditional
           // second time
           if (obj.hour_of_tweet == current_hour){
-            download_convert_post(obj.url, obj.pdf_file_name);  
+            // until we fix the pdf issue...
+            // download_convert_post(obj.url, obj.pdf_file_name);  
+            T.post("statuses/update", {status: obj.tweet}, function (err, data, response) {
+              if (!err){
+                console.log(data.text);
+                console.log(" ");
+              } else {
+                console.log(err.message);
+              }
+            });
           }
           
           // downloads a pdf (and also converts it to an image and posts the tweet)

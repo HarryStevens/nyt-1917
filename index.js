@@ -7,7 +7,8 @@ var request = require("request"),
   cheerio = require("cheerio"),
   http = require("http"),
   PDFImage = require("pdf-image").PDFImage,
-  jz = require("jeezy");
+  jz = require("jeezy"),
+  download = require("download");
 
 var current_hour = moment().format("H");
 
@@ -311,9 +312,9 @@ request.get({
         if (obj.tweet.indexOf("Obituary ") == -1){
 
           // first time
-          console.log(persons);
-          console.log(obj.tweet);
-          console.log(" ");
+          // console.log(persons);
+          // console.log(obj.tweet);
+          // console.log(" ");
           // and we'll save the tweets for fun
           // tweets.push(obj)
           // fs.writeFileSync("tweets/tweets_" + date.format("YYYY-MM-DD") + ".json", JSON.stringify(tweets));
@@ -321,88 +322,141 @@ request.get({
           // once we set the cron job, we'll use this conditional
           // second time
           if (obj.hour_of_tweet == current_hour){
-            // download_convert_post(obj.url, obj.pdf_file_name);  
+            
+            // download_convert_post(obj.url, obj.pdf_file_name);
+
+            // until the above gets fixed
+            T.post("statuses/update", {status: obj.tweet}, function (err, data, response) {
+              if (!err){
+                console.log(data.text);
+                console.log(" ");
+              } else {
+                console.log(err.message);
+              }
+            });
+            
           }
+
+          // this is temporary to test
+          if (i == 0) {
+
+            // download_convert_post(obj.url, obj.pdf_file_name); 
+          }
+          
           
           // downloads a pdf (and also converts it to an image and posts the tweet)
           function download_convert_post(input, output){
 
-            // a stream to write the pdf file for downloading
-            var file = fs.createWriteStream(output); 
+            // console.log(input);
+            // console.log(output);
 
-            // get the html of the nyt page
-            request(input, function(error, response, body){
+            // download(input).then(data => {
+            //   fs.writeFileSync(output, data);
+            // });
 
-              if (!error && response.statusCode == 200){
-                // load cheerio
-                var $ = cheerio.load(body);
+            // request(input, (err, res, body) => {
+                
+            //   if (err || res.statusCode !== 200) console.log("Request didn't work.");
 
-                // find the pdf url in the response
-                var pdf = $("iframe").attr("src");
+            //   var $ = cheerio.load(body);
+            //   console.log($("body").html());
 
-                // time to download the pdf
-                var request = http.get(pdf, function(response) {
+            // })
+
+            http.get(input, res => {
+              var chunks = [];
+
+              res.on("data", chunk => {
+
+                  console.log("Downloading .pdf from " + input);
+
+                  chunks.push(chunk);
+
+              });
+
+              res.on("end", () => {
+                console.log(chunks);
+              });
+            })
+
+
+
+            // // a stream to write the pdf file for downloading
+            // var file = fs.createWriteStream(output); 
+
+            // // get the html of the nyt page
+            // request(input, function(error, response, body){
+
+            //   if (!error && response.statusCode == 200){
+            //     // load cheerio
+            //     var $ = cheerio.load(body);
+
+            //     // find the pdf url in the response
+            //     var pdf = $("iframe").attr("src");
+
+            //     // time to download the pdf
+            //     var request = http.get(pdf, function(response) {
                   
-                  // pipe the response to the file
-                  var stream = response.pipe(file);
+            //       // pipe the response to the file
+            //       var stream = response.pipe(file);
                   
-                  // when it's done, we'll convert to an image and post the tweet
-                  stream.on("finish", function(){
+            //       // when it's done, we'll convert to an image and post the tweet
+            //       stream.on("finish", function(){
 
-                    // convert to image, with white background
-                    var pdfImage = new PDFImage(output, {
-                        convertOptions: {
-                            '-background': 'white',
-                            '-flatten': ''
-                        }
-                    });
+            //         // convert to image, with white background
+            //         var pdfImage = new PDFImage(output, {
+            //             convertOptions: {
+            //               '-background': 'white',
+            //               '-flatten': ''
+            //             }
+            //         });
 
-                    pdfImage.convertPage(0).then(function (imagePath) {
+            //         pdfImage.convertPage(0).then(function (imagePath) {
                       
-                      //
-                      // post a tweet with media
-                      //
-                      var b64content = fs.readFileSync(imagePath, { encoding: "base64" })
+            //           //
+            //           // post a tweet with media
+            //           //
+            //           var b64content = fs.readFileSync(imagePath, { encoding: "base64" })
 
-                      // first we must post the media to Twitter
-                      T.post("media/upload", { media_data: b64content }, function (err, data, response) {
+            //           // first we must post the media to Twitter
+            //           T.post("media/upload", { media_data: b64content }, function (err, data, response) {
                         
-                        // now we can assign alt text to the media, for use by screen readers and
-                        // other text-based presentations and interpreters
-                        var mediaIdStr = data.media_id_string;
-                        var altText = obj.headline;
-                        var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+            //             // now we can assign alt text to the media, for use by screen readers and
+            //             // other text-based presentations and interpreters
+            //             var mediaIdStr = data.media_id_string;
+            //             var altText = obj.headline;
+            //             var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
 
-                        T.post("media/metadata/create", meta_params, function (err, data, response) {
-                          if (!err) {
-                            // now we can reference the media and post a tweet (media will attach to the tweet)
-                            var params = { status: obj.tweet, media_ids: [mediaIdStr] }
+            //             T.post("media/metadata/create", meta_params, function (err, data, response) {
+            //               if (!err) {
+            //                 // now we can reference the media and post a tweet (media will attach to the tweet)
+            //                 var params = { status: obj.tweet, media_ids: [mediaIdStr] }
 
-                            // post the tweet
-                            T.post("statuses/update", params, function (err, data, response) {
-                              if (!err){
-                                console.log(data.text);
-                                console.log(" ");
-                              } else {
-                                console.log(err.message);
-                              }
-                            });
+            //                 // post the tweet
+            //                 T.post("statuses/update", params, function (err, data, response) {
+            //                   if (!err){
+            //                     console.log(data.text);
+            //                     console.log(" ");
+            //                   } else {
+            //                     console.log(err.message);
+            //                   }
+            //                 });
 
-                          }
+            //               }
                           
-                        });
+            //             });
 
-                      });
+            //           });
                       
-                    });
+            //         });
 
-                  });
+            //       });
 
-                });
+            //     });
 
-              }
+            //   }
 
-            }); 
+            // }); 
 
           }
 

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^0.22.0",
+    "download": "^6.2.5",
     "jeezy": "^1.5.4",
     "moment": "^2.18.1",
     "pdf-image": "^1.1.0",
